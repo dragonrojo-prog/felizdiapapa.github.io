@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Feliz Día papá</title>
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(25deg,#1e1ee6, #986e26, #f7167fc5);
+            background-size: 500% 800%;
+            animation: gradient 5s ease-in infinite;
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 70%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 70%; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            padding-top: 10%;
+        }
+
+        /* Animación del título */
+        @keyframes bounce-swing {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            25% { transform: translateY(-15px) rotate(0deg); }
+            50% { transform: translateY(0) rotate(5deg); }
+            75% { transform: translateY(-10px) rotate(0deg); }
+        }
+        
+        @keyframes colorful-text {
+            0% { color: #ff6b6b; text-shadow: 0 0 8px #ff6b6b; }
+            25% { color: #4ecdc4; text-shadow: 0 0 8px #4ecdc4; }
+            50% { color: #ffe66d; text-shadow: 0 0 8px #ffe66d; }
+            75% { color: #ff9ff3; text-shadow: 0 0 8px #ff9ff3; }
+            100% { color: #feca57; text-shadow: 0 0 8px #feca57; }
+        }
+        
+        .animated-title {
+            display: inline-block;
+            font-size: 3em;
+            animation: bounce-swing 3s ease-in-out infinite, colorful-text 7s linear infinite;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Puerta interactiva */
+        .door-container {
+            display: flex;
+            justify-content: center;
+            margin: 50px auto;
+            perspective: 1000px;
+        }
+
+        .door {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .door-front, .door-inside {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .door-front {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .door-inside {
+            background: linear-gradient(to right, #d06908, #e6b800);
+            color: #1e3c72;
+            transform: rotateY(180deg);
+        }
+
+        .door.open {
+            transform: rotateY(180deg);
+        }
+
+        /* Elementos flotantes */
+        #floating-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            animation-timing-function: linear;
+            will-change: transform;
+            font-size: 25px;
+            user-select: none;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        /* Barras laterales */
+        .m1, .m2 {
+            position: fixed;
+            width: 50px;
+            height: 100%;
+            top: 0;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        .m1 { left: 1%; }
+        .m2 { right: 1%; }
+
+        /* Menú desplegable */
+        .contenedor {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+
+/* Mejoras de responsividad */
+        .animated-title {
+            font-size: clamp(1.5rem, 8vw, 3rem); /* Tamaño adaptable */
+        }
+
+        .door {
+            width: min(200px, 40vw);
+            height: min(200px, 40vw);
+        }
+
+        .door-front, .door-inside {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-top: 20%;
+            }
+            
+            .m1, .m2 {
+                width: 30px;
+            }
+            
+            .floating-element {
+                font-size: 20px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding-top: 30%;
+            }
+            
+            .animated-title {
+                padding: 5px 10px;
+            }
+            
+            .door-container {
+                margin: 30px auto;
+            }
+        }
+
+
+ body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fff5f5;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
+
+
+
+ .heart {
+            width: 100px;
+            height: 100px;
+            background-color: #ff4d4d;
+            position: relative;
+            transform: rotate(45deg);
+            animation: heartbeat 1.5s infinite;
+            margin-bottom: 30px;
+        }
+
+        .heart:before, .heart:after {
+            content: "";
+            width: 100px;
+            height: 100px;
+            background-color: #ff4d4d;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart:before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -50px;
+        }
+
+        .message {
+            font-size: 24px;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 2s forwards 1s;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: rotate(45deg) scale(1); }
+            25% { transform: rotate(45deg) scale(1.1); }
+            50% { transform: rotate(45deg) scale(1); }
+            75% { transform: rotate(45deg) scale(1.1); }
+            100% { transform: rotate(45deg) scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+
+ 
+
+
+         
+
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Contenedor para elementos flotantes -->
+    <div id="floating-container"></div>
+
+    <div class="container">
+        <h1 class="animated-title">¡Feliz Día del padre</h1>
+        <p>Para el mejor papá del mundo <strong id="dad-name"></strong></p>
+        <p>Gracias por siempre estar ahí. ❤️</p>
+    </div>
+
+    <!-- Puerta interactiva -->
+    <div class="door-container">
+        <div class="door" onclick="openDoor()">
+            <div class="door-front">🎁 Toca aquí, papá</div>
+            <div class="door-inside">¡Feliz Día del Padre! te quiero mucho papa´ ❤️</div>
+        </div>
+    </div>
+
+
+    <div class="heart"></div>
+    <div class="message">¡Feliz Día, Papá!</div>
+
+    <button onclick="alert('❤️ Te amo, papá ❤️')">Haz clic aquí
+      
+    </button>
+
+
+    <!-- Menú desplegable -->
+    <div class="contenedor text-center">
+        <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                felicidades
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="flores/index1.html">para ti papa</a></li>
+                <li><a class="dropdown-item" href="dia.html">feliz dia</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- Barras laterales -->
+    <marquee class="m1" behavior="scroll" direction="up" scrolldelay="0">
+        <span style="font-size: 30px;">👔</span><br><br>
+        <span style="font-size: 30px;">☕</span><br><br>
+        <span style="font-size: 30px;">🛋️</span><br><br>
+        <span style="font-size: 30px;">🧰</span><br><br>
+        <span style="font-size: 30px;">⚒️</span><br><br>
+        <span style="font-size: 30px;">🛠️</span><br><br>
+        <span style="font-size: 30px;">🏆</span><br><br>
+        <span style="font-size: 30px;">🎩</span><br><br>
+        <span style="font-size: 30px;">⌚</span><br><br>
+        <span style="font-size: 30px;">🚗</span><br><br>
+    </marquee>
+
+    <marquee class="m2" behavior="scroll" direction="down" scrolldelay="0">
+        <span style="font-size: 30px;">👨‍👧‍👦</span><br><br>
+        <span style="font-size: 30px;">❤️</span><br><br>
+        <span style="font-size: 30px;">⚽</span><br><br>
+        <span style="font-size: 30px;">🎣</span><br><br>
+        <span style="font-size: 30px;">📚</span><br><br>
+        <span style="font-size: 30px;">🍔</span><br><br>
+        <span style="font-size: 30px;">☕</span><br><br>
+        <span style="font-size: 30px;">🛋️</span><br><br>
+        <span style="font-size: 30px;">🎩</span><br><br>
+        <span style="font-size: 30px;">⌚</span><br><br>
+        <span style="font-size: 30px;">🚗</span><br><br>
+    </marquee>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Elementos flotantes
+        function createFloatingElements() {
+            const container = document.getElementById('floating-container');
+            const elements = ['⚒️', '🛠️', '🔧', '🔨', '🧰', '⌚', '👔', '🏆', '❤️', '👨‍👧‍👦'];
+            const numElements = 40;
+
+            for (let i = 0; i < numElements; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.top = Math.random() * -100 + 'vh';
+                element.style.animation = `fall ${Math.random() * 8 + 5}s linear infinite`;
+                element.style.animationDelay = Math.random() * 5 + 's';
+                element.style.fontSize = `${Math.random() * 25 + 15}px`;
+                element.style.opacity = Math.random() * 0.7 + 0.3;
+                container.appendChild(element);
+            }
+        }
+
+        // Función para la puerta
+        function openDoor() {
+            const door = document.querySelector('.door');
+            door.classList.toggle('open');
+            
+            // Efecto de sonido opcional
+            // const audio = new Audio('click-sound.mp3');
+            // audio.play();
+        }
+
+
+
+
+         // Ajustar elementos flotantes en móviles
+        function adjustForMobile() {
+            if (window.innerWidth < 768) {
+                const elements = document.querySelectorAll('.floating-element');
+                elements.forEach(el => {
+                    el.style.fontSize = `${Math.random() * 15 + 10}px`;
+                });
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            createFloatingElements();
+            setDadName();
+            adjustForMobile();
+        });
+
+        window.addEventListener('resize', adjustForMobile);
+
+       
+        // Inicialización
+        window.addEventListener('DOMContentLoaded', function() {
+            createFloatingElements();
+            setDadName();
+        });
+    </script>
+</body>
+</html>
